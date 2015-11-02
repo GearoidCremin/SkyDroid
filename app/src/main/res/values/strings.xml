@@ -2,4 +2,6 @@
     <string name="app_name">SkyDroid</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_join_skynet">JoinSkynet</string>
+    <string name="title_activity_home_page">HomePage</string>
+    <string name="rate"></string>
 </resources>

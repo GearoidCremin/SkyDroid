@@ -1,9 +1,14 @@
 package com.compsoc.skynet.skydroid;
 
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.*;
+//import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.util.Properties;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +17,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
+import java.util.Scanner;
+//import java.io.PrintStream;
+//import java.io.ByteArrayOutputStream;
+//import java.io.OutputStream;
 public class SkynetLogin extends AppCompatActivity {
-
+    //    static PrintStream commander;
+//    static ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//    static Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,18 +67,25 @@ public class SkynetLogin extends AppCompatActivity {
     }
 
     public void joinSkynet(View view) {
-        Intent intent = new Intent(this, JoinSkynet.class);
-        startActivity(intent);
+        Intent joinSkynet = new Intent(this, JoinSkynet.class);
+        startActivity(joinSkynet);
     }
 
     public void login(View view) {
-        //Open a new ssh connection to Skynet and keep open
-       JSch skynetSSH = new JSch();
-        try {
-            Session session = skynetSSH.getSession("gearoid", "skynet.ie", 22);
-            session.setPassword("gearoid3p72");
-        }catch (JSchException jupe){
-            System.out.print("Check Internet Connection!");
+
+        EditText usernameEdit = (EditText) findViewById(R.id.editText2);
+        String user = usernameEdit.getText().toString();
+        EditText passwordEdit = (EditText) findViewById(R.id.editText);
+        String pass = passwordEdit.getText().toString();
+        System.out.println("Username: "+user);
+        System.out.println("Password: "+pass);
+        if(user!=null && pass!= null) {
+            System.out.println("Creating HomePage");
+            Intent homePage = new Intent(this, HomePage.class);
+            homePage.putExtra("pass", pass);
+            homePage.putExtra("user", user);
+            System.out.println("Sending to HomePage");
+            startActivity(homePage);
         }
     }
 }
