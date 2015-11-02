@@ -1,5 +1,8 @@
 package com.compsoc.skynet.skydroid;
 
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -57,6 +60,13 @@ public class SkynetLogin extends AppCompatActivity {
     }
 
     public void login(View view) {
-
+        //Open a new ssh connection to Skynet and keep open
+       JSch skynetSSH = new JSch();
+        try {
+            Session session = skynetSSH.getSession("gearoid", "skynet.ie", 22);
+            session.setPassword("gearoid3p72");
+        }catch (JSchException jupe){
+            System.out.print("Check Internet Connection!");
+        }
     }
 }
